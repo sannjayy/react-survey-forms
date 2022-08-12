@@ -13,10 +13,15 @@ export default function Header() {
 				<IconButton>
 					<MenuIcon />
 				</IconButton>
+				<div className='info'>
+					Echo Strokes
+				</div>
 			</div>
 			<div className='header_search'>
-				<SearchIcon />
-				<input type="text" name="search" />
+				<IconButton>
+					<SearchIcon />
+				</IconButton>
+				<input type="text" name="search" placeholder="Search" />
 			</div>
 			<div className='header_right'>
 				<IconButton>
