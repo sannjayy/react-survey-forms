@@ -1,16 +1,22 @@
 import './App.css';
-import Header from './components/Header';
-import Main from './components/Main';
-import Template from './components/Template';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Layout from './components/Layout';
+import HomePage from './pages/home';
+import FormPage from './pages/form';
 
 function App() {
-	return (
-		<div className="App">
-			<Header />
-			<Template />
-            <Main />
-		</div>
-	);
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Layout />}>
+                    <Route path='/form/:id' element={<FormPage />} />
+                    <Route index element={<HomePage />} />
+                </Route>
+
+                <Route path='*' element={<h1>404 Page not found</h1>} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

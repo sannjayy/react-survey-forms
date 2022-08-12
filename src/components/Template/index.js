@@ -4,8 +4,17 @@ import { IconButton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import CardComp from './Card';
+import uuid from 'react-uuid'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Template() {
+    let navigate = useNavigate();
+    const handleCreateForm = () => {
+        const id = uuid()
+        console.log('first', id)
+        navigate(`/form/${id}`);
+    }
 	return (
 		<div className="template">
 			<div className="template-top">
@@ -23,7 +32,9 @@ export default function Template() {
 				</div>
 			</div>
 			<div className="template-body">
-				<CardComp />
+				<CardComp 
+                    handleCreateForm={handleCreateForm}
+                />
 				<CardComp />
 				<CardComp />
 			</div>

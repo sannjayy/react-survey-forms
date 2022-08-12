@@ -3,11 +3,12 @@ import './Main.css';
 import { IconButton } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import StorageIcon from '@mui/icons-material/Storage';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import StorageIcon from '@mui/icons-material/Storage';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MainCard from './Card';
 
 export default function Main() {
+    
 	return (
 		<div className="main-body">
 			<div className="body-top">
@@ -39,7 +40,7 @@ export default function Main() {
 					</div> */}
 
 				</div>
-				<MainCard />
+				<MainCard  />
 			</div>
 		</div>
 	)
