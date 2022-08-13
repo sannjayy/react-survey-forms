@@ -45,6 +45,7 @@ export default function QuestionForm() {
         console.log(newQuestion)
     }
     const handleCopyQuestion = (i) => {
+        handleExpandCloseAll();
         let question = [...questions];
         var newQuestion = question[i];
         setQuestions([...questions, newQuestion])
@@ -94,6 +95,7 @@ export default function QuestionForm() {
         console.log(type)
     }
     const handleAddMoreQuestionField = () => {
+        handleExpandCloseAll();
         setQuestions([
             ...questions,
             {
@@ -126,6 +128,26 @@ export default function QuestionForm() {
         return result;
     }
 
+    const handleExpandCloseAll = () => {
+        let qs = [...questions];
+        for (let j=0; j < qs.length; j++){
+            qs[j].open = false;
+        }
+        setQuestions(qs);
+    }
+    const handleExpand = (i) => {
+        let qs = [...questions];
+        for (let j=0; j < qs.length; j++){
+            if( i === j){
+                qs[j].open = true;
+            } else {
+                qs[j].open = false;
+            } 
+        }
+        setQuestions(qs);
+    }
+
+
 	const questionsUI = () => {
 		return questions.map((question, i) => (
             
@@ -146,7 +168,7 @@ export default function QuestionForm() {
                                 </div>
                             </div>
                             <div>
-                            <Accordion expanded={question.open} className={questions[i].open ? 'add_border'  : ''}>
+                            <Accordion expanded={question.open} onChange={() => handleExpand(i)} className={questions[i].open ? 'add_border'  : ''}>
                                 <AccordionSummary
                                     aria-controls="panel1a-content"
                                     id="panel1a-header"
@@ -179,80 +201,82 @@ export default function QuestionForm() {
                                         </div>
                                     ) : ''}					
                                 </AccordionSummary>
+                                
+                                { questions[i].open &&
                                 <div className='question_boxes'>
-                                <AccordionDetails className='add_question'>
-                                    <div className='add_question_top'>
-                                        <input type="text" className="question" placeholder="Question" onChange={(e) => handleChangeQuestion(e.target.value, i)} value={question.questionText} />
-                                        <CropOriginalIcon style={{color: '#5f6368'}} />
-                                        <Select className='select' style={{ color: '#5f6368', fontSize: '13px'}}>
-                                            <MenuItem id="text" value="Text" onClick={() => addQuestionType(i, 'text')} key={`Text`}>
-                                                <SubjectIcon style={{ marginRight: '10px'}}  />
-                                                Paragraph 
-                                            </MenuItem>
-                                            <MenuItem id="checkbox" value="Checkbox" onClick={() => addQuestionType(i, 'checkbox')} key={`Checkbox`}>
-                                                <CheckBoxIcon style={{ marginRight: '10px'}}  />
-                                                Checkbox 
-                                            </MenuItem>
-                                            <MenuItem id="radio" value="Radio" onClick={() => addQuestionType(i, 'radio')} key={`Checkbox`}> 
-                                                <RadioButtonCheckedIcon style={{ marginRight: '10px'}}  />
-                                                Multiple Choice 
-                                            </MenuItem>
-                                        </Select>
-                                    </div>
-                                    {question.options.map((option, j) => (
-                                        <div className="add_question_body" key={j}>
-                                            {
-                                                (question.questionType !== 'text') ?
-                                                <input type={question.questionType} style={{ marginRight: '10px' }} /> :
-                                                <ShortTextIcon style={{marginRight: '10px' }} />
-                                            }
-                                            <div>
-                                                <input type='text' className='text_input' placeholder='option' onChange={(e) => handleChangeOption(e.target.value, i, j)} value={question.options[j].optionText} />
-                                                {/* value={question.options[j].optionText} /> */}
-                                            </div>
-                                            
-                                            <CropOriginalIcon />
-
-                                            <IconButton aria-label="delete">
-                                                <CloseIcon onClick={() => handleRemoveOption(i,j)} />
-                                            </IconButton>
+                                    <AccordionDetails className='add_question'>
+                                        <div className='add_question_top'>
+                                            <input type="text" className="question" placeholder="Question" onChange={(e) => handleChangeQuestion(e.target.value, i)} value={question.questionText} />
+                                            <CropOriginalIcon style={{color: '#5f6368'}} />
+                                            <Select className='select' style={{ color: '#5f6368', fontSize: '13px'}}>
+                                                <MenuItem id="text" value="Text" onClick={() => addQuestionType(i, 'text')} key={`Text`}>
+                                                    <SubjectIcon style={{ marginRight: '10px'}}  />
+                                                    Paragraph 
+                                                </MenuItem>
+                                                <MenuItem id="checkbox" value="Checkbox" onClick={() => addQuestionType(i, 'checkbox')} key={`Checkbox`}>
+                                                    <CheckBoxIcon style={{ marginRight: '10px'}}  />
+                                                    Checkbox 
+                                                </MenuItem>
+                                                <MenuItem id="radio" value="Radio" onClick={() => addQuestionType(i, 'radio')} key={`Checkbox`}> 
+                                                    <RadioButtonCheckedIcon style={{ marginRight: '10px'}}  />
+                                                    Multiple Choice 
+                                                </MenuItem>
+                                            </Select>
                                         </div>
-                                    ))}
-                                    { question.options.length < 5 ? (
-                                        <div className='add_question_body'>
-                                            <FormControlLabel disabled control={
-                                                (question.questionType !== 'text') ? 
-                                                <input type={question.questionType} color="primary" inputProps={{ 'aria-label': 'secondary checkbox'}} style={{marginLeft: '10px', marginRight: '10px' }} disabled /> :
-                                                <ShortTextIcon style={{marginRight: '10px' }} />
-                                            } label={
+                                        {question.options.map((option, j) => (
+                                            <div className="add_question_body" key={j}>
+                                                {
+                                                    (question.questionType !== 'text') ?
+                                                    <input type={question.questionType} style={{ marginRight: '10px' }} /> :
+                                                    <ShortTextIcon style={{marginRight: '10px' }} />
+                                                }
                                                 <div>
-                                                    <input type='text' className="text_input" style={{fontSize:'13px', width:'60px'}} placeholder="add other" />
-                                                    <Button size="small" style={{textTransform: 'none', color: "#4285f4", fontSize:'13px', fontWeight: '600'}} onClick={() => handleAddOption(i)}>Add Option</Button>
+                                                    <input type='text' className='text_input' placeholder='option' onChange={(e) => handleChangeOption(e.target.value, i, j)} value={question.options[j].optionText} />
+                                                    {/* value={question.options[j].optionText} /> */}
                                                 </div>
-                                            } />
+                                                
+                                                <CropOriginalIcon />
+
+                                                <IconButton aria-label="delete">
+                                                    <CloseIcon onClick={() => handleRemoveOption(i,j)} />
+                                                </IconButton>
+                                            </div>
+                                        ))}
+                                        { question.options.length < 5 ? (
+                                            <div className='add_question_body'>
+                                                <FormControlLabel disabled control={
+                                                    (question.questionType !== 'text') ? 
+                                                    <input type={question.questionType} color="primary" inputProps={{ 'aria-label': 'secondary checkbox'}} style={{marginLeft: '10px', marginRight: '10px' }} disabled /> :
+                                                    <ShortTextIcon style={{marginRight: '10px' }} />
+                                                } label={
+                                                    <div>
+                                                        <input type='text' className="text_input" style={{fontSize:'13px', width:'60px'}} placeholder="add other" />
+                                                        <Button size="small" style={{textTransform: 'none', color: "#4285f4", fontSize:'13px', fontWeight: '600'}} onClick={() => handleAddOption(i)}>Add Option</Button>
+                                                    </div>
+                                                } />
+                                            </div>
+                                        ) : ''}
+                                        <div className="add_footer">
+                                            <div className="add_question_bottom_left">
+                                                <Button size='small' style={{ textTransform: 'none', color: '#4285f4', fontSize: '13px', fontWeight: '600' }}>
+                                                    <NorthEastIcon />
+                                                    Answer Key
+                                                </Button>
+                                            </div>
+                                            <div className="add_question_bottom">
+                                                <IconButton aria-label="copy" onClick={() => handleCopyQuestion(i)}>
+                                                    <FilterNoneIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="delete" onClick={() => handleDeleteQuestion(i)}>
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                                <span>Required <Switch name="checkedA" color="primary" onClick={() => handleRequiredQuestion(i)} /></span>
+                                                <IconButton>
+                                                    <MoreVertIcon />
+                                                </IconButton>
+                                            </div>
                                         </div>
-                                    ) : ''}
-                                    <div className="add_footer">
-                                        <div className="add_question_bottom_left">
-                                            <Button size='small' style={{ textTransform: 'none', color: '#4285f4', fontSize: '13px', fontWeight: '600' }}>
-                                                <NorthEastIcon />
-                                                Answer Key
-                                            </Button>
-                                        </div>
-                                        <div className="add_question_bottom">
-                                            <IconButton aria-label="copy" onClick={() => handleCopyQuestion(i)}>
-                                                <FilterNoneIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" onClick={() => handleDeleteQuestion(i)}>
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <span>Required <Switch name="checkedA" color="primary" onClick={() => handleRequiredQuestion(i)} /></span>
-                                            <IconButton>
-                                                <MoreVertIcon />
-                                            </IconButton>
-                                        </div>
-                                    </div>
-                                </AccordionDetails>
+                                    </AccordionDetails>
                                     <div className="question_edit">
                                         <IconButton onClick={handleAddMoreQuestionField} >
                                             <AddCircleOutlineIcon className="edit" />
@@ -262,7 +286,7 @@ export default function QuestionForm() {
                                         <CropOriginalIcon className="edit" />
                                         <TextFieldsIcon className="edit" />
                                     </div>
-                                </div>
+                                </div> }
                             </Accordion>
                         </div>
                         </div>
