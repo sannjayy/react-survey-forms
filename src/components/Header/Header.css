@@ -14,9 +14,9 @@
     display: flex;
     align-items: center;
 }
-.info{
+.logo{
     color: #5f6368;
-    font-size: 20px;
+    font-size: 200px;
     padding-left: 5px;
 }
 .header_search{

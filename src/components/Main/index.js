@@ -1,7 +1,7 @@
 import React from 'react'
 import './Main.css';
 import { IconButton } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 // import StorageIcon from '@mui/icons-material/Storage';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -13,14 +13,14 @@ export default function Main() {
 		<div className="main-body">
 			<div className="body-top">
 				<div className="body-top-left" style={{fontSize: '16px', fontWeight: '500'}}>
-					Echo Strokes Forms
+					Echo Strokes Surveys
 				</div>
 				
 				<div className="body-top-right">
-					<div className="body-top-right-center" style={{fontSize: '14px', marginRight: '125px'}}>
+					{/* <div className="body-top-right-center" style={{fontSize: '14px', marginRight: '125px'}}>
 						Owned by anyone 
 						<ArrowDropDownIcon />
-					</div>
+					</div> */}
 					<IconButton>
 						<FolderOpenIcon style={{fontSize: '14px', color: 'black'}} />
 					</IconButton>

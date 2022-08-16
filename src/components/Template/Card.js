@@ -7,27 +7,28 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
-export default function CardComp({ handleCreateForm }) {
+export default function CardComp({ title, desc, handleCreateForm }) {
 	return (
 		<Box sx={{ minWidth: 275, marginLeft: 1 }}>
 			<Card variant="outlined">
 				<React.Fragment>
 					<CardContent>
-						<Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+						{/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
 							15th Aug, 2022
-						</Typography>
+						</Typography> */}
 						<Typography variant="h5" component="div">
-							Blank
+							{title}
 						</Typography>
-						<Typography sx={{ mb: 1.5 }} color="text.secondary">
+						{/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
 							adjective
-						</Typography>
+						</Typography> */}
 						<Typography variant="body2">
-							Create a new form
+							{desc}
 						</Typography>
 					</CardContent>
 					<CardActions>
-						<Button size="small" onClick={handleCreateForm}>Create Form</Button>
+                        {title === 'Blank' && <Button size="small" onClick={handleCreateForm}>Create Form</Button>}
+						
 					</CardActions>
 				</React.Fragment>	
 			</Card>

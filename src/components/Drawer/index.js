@@ -10,9 +10,10 @@ import Box from '@mui/material/Box';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PostAddIcon from '@mui/icons-material/PostAdd';
+// import PostAddIcon from '@mui/icons-material/PostAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
-
+import { NavLink } from 'react-router-dom'
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function DrawerComp() {
 	const [state, setState] = useState({
@@ -34,15 +35,15 @@ export default function DrawerComp() {
 		>
 			<List>
 				<ListItem>
-					<ListItemText primary={`ECHO STROKES FORMS`} />
+					<ListItemText primary={`ECHO STROKES SURVEY`} />
 				</ListItem>
 				<Divider />
 				<ListItem disablePadding>
-					<ListItemButton>
+					<ListItemButton component={NavLink} to="/">
 						<ListItemIcon>
-							<PostAddIcon />
+							<HomeIcon />
 						</ListItemIcon>
-						<ListItemText primary={`Create a form`} />
+						<ListItemText primary="Home" />
 					</ListItemButton>
 				</ListItem>
 			</List>
