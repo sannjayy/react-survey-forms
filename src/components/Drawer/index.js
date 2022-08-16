@@ -13,7 +13,12 @@ import ListItemText from '@mui/material/ListItemText';
 // import PostAddIcon from '@mui/icons-material/PostAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { NavLink } from 'react-router-dom'
-import HomeIcon from '@mui/icons-material/Home';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PollIcon from '@mui/icons-material/Poll';
+import RedeemIcon from '@mui/icons-material/Redeem';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function DrawerComp() {
 	const [state, setState] = useState({
@@ -41,14 +46,55 @@ export default function DrawerComp() {
 				<ListItem disablePadding>
 					<ListItemButton component={NavLink} to="/">
 						<ListItemIcon>
-							<HomeIcon />
+							<DashboardIcon />
 						</ListItemIcon>
-						<ListItemText primary="Home" />
+						<ListItemText primary="Dashboard" />
 					</ListItemButton>
 				</ListItem>
+				<ListItem disablePadding>
+					<ListItemButton component={NavLink} to="/">
+						<ListItemIcon>
+							<PollIcon />
+						</ListItemIcon>
+						<ListItemText primary="Surveys" />
+					</ListItemButton>
+				</ListItem>
+                <ListItem disablePadding>
+					<ListItemButton>
+						<ListItemIcon>
+							<PeopleOutlineIcon />
+						</ListItemIcon>
+						<ListItemText primary={`Users`} />
+					</ListItemButton>
+				</ListItem>                
 			</List>
 			<Divider />
 			<List>
+
+            <ListItem disablePadding>
+					<ListItemButton>
+						<ListItemIcon>
+							<FavoriteIcon />
+						</ListItemIcon>
+						<ListItemText primary={`Favorites`} />
+					</ListItemButton>
+				</ListItem>
+				<ListItem disablePadding>
+					<ListItemButton>
+						<ListItemIcon>
+							<RedeemIcon />
+						</ListItemIcon>
+						<ListItemText primary={`Stroke Redeems`} />
+					</ListItemButton>
+				</ListItem>
+				<ListItem disablePadding>
+					<ListItemButton>
+						<ListItemIcon>
+							<SupervisorAccountIcon />
+						</ListItemIcon>
+						<ListItemText primary={`Roles`} />
+					</ListItemButton>
+				</ListItem>
 				<ListItem disablePadding>
 					<ListItemButton>
 						<ListItemIcon>
