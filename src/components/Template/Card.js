@@ -27,7 +27,7 @@ export default function CardComp({ title, desc, handleCreateForm }) {
 						</Typography>
 					</CardContent>
 					<CardActions>
-                        {title === 'Blank' && <Button size="small" onClick={handleCreateForm}>Create Form</Button>}
+                        {title === 'Blank' && <Button size="small" onClick={handleCreateForm}>Create Survey</Button>}
 						
 					</CardActions>
 				</React.Fragment>	

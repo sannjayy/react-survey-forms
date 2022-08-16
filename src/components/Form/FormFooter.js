@@ -1,30 +1,78 @@
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 // import NorthEastIcon from '@mui/icons-material/NorthEast';
-import { Switch, IconButton  } from '@mui/material';
+import { Switch, IconButton, Divider } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
+import { StyledMenu } from '../Styled/StyledMenu';
+import React from 'react';
+import MenuItem from '@mui/material/MenuItem';
+import DoneIcon from '@mui/icons-material/Done';
 
 export default function FormFooter({ i, handleCopyQuestion, handleDeleteQuestion, handleRequiredQuestion }) {
-	return (
-		<div className="add_footer">
-			<div className="add_question_bottom_left">
-				{/* <Button size='small' style={{ textTransform: 'none', color: '#4285f4', fontSize: '13px', fontWeight: '600' }}>
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    return (
+        <div className="add_footer">
+            <div className="add_question_bottom_left">
+                {/* <Button size='small' style={{ textTransform: 'none', color: '#4285f4', fontSize: '13px', fontWeight: '600' }}>
 					<NorthEastIcon />
 					Answer Key
 				</Button> */}
-			</div>
-			<div className="add_question_bottom">
-				<IconButton aria-label="copy" onClick={() => handleCopyQuestion(i)}>
-					<FilterNoneIcon />
-				</IconButton>
-				<IconButton aria-label="delete" onClick={() => handleDeleteQuestion(i)}>
-					<DeleteIcon />
-				</IconButton>
-				<span>Required <Switch name="checkedA" color="primary" onClick={() => handleRequiredQuestion(i)} /></span>
-				{/* <IconButton>
-					<MoreVertIcon />
-				</IconButton> */}
-			</div>
-		</div>
-	)
+            </div>
+            <div className="add_question_bottom">
+                <Tooltip title="Duplicate Question">
+                    <IconButton aria-label="copy" onClick={() => handleCopyQuestion(i)}>
+                        <FilterNoneIcon />
+                    </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Delete Question">
+                    <IconButton aria-label="delete" onClick={() => handleDeleteQuestion(i)}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
+                <Divider orientation='vertical' light={true} component='div' />
+                <Tooltip title="Make Question Required">
+                    <span style={{ marginLeft: '10px', marginRight: '10px' }}>Required <Switch name="checkedA" color="primary" onClick={() => handleRequiredQuestion(i)} /></span>
+                </Tooltip>
+
+                <Tooltip title="More Options">
+                    <IconButton
+                        id="form-more-button"
+                        aria-controls={open ? 'form-more-button' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        disableElevation
+                        onClick={handleClick}
+                    >
+                        <MoreVertIcon />
+                    </IconButton>
+                </Tooltip>
+                <div>
+                    <StyledMenu
+                        id="form-more-menu"
+                        MenuListProps={{
+                            'aria-labelledby': 'form-more-button',
+                        }}
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleClose} disableRipple>
+                            <DoneIcon />
+                            Limit one response per column
+                        </MenuItem>
+                        
+                    </StyledMenu>
+                </div>
+            </div>
+        </div>
+    )
 }

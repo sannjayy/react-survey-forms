@@ -14,20 +14,17 @@ import AddOptionsField from './AddOptionsField';
 export default function QuestionForm() {
 	const [ questions, setQuestions ] = useState([
 		{
-			questionText: 'what is the capital of west bengal?',
+			questionText: 'Question',
 			questionType: "radio",
 			options: [
-				{ optionText: 'Bangalore'},
-				{ optionText: 'Kolkata'},
-				{ optionText: 'Patna'},
-				{ optionText: 'Gangtok'}
+				{ optionText: 'Option 1'},
 			],
 			open: true,
 			required: false,
 		}
 	])
     const handleChangeQuestion = (text, i) => {
-        var newQuestion = [...questions];
+        const newQuestion = [...questions];
         newQuestion[i].questionText = text;
         setQuestions(newQuestion)
         console.log(newQuestion)
@@ -35,7 +32,7 @@ export default function QuestionForm() {
     const handleCopyQuestion = (i) => {
         handleExpandCloseAll();
         let question = [...questions];
-        const newQuestion = {...question[i]};
+        const newQuestion = {...question[i], open:true};
         let qsCopy = JSON.parse(JSON.stringify(question));
         qsCopy.push(newQuestion);
         setQuestions(qsCopy)
@@ -104,7 +101,7 @@ export default function QuestionForm() {
         if (!result.destination){
             return;
         }
-        var itemgg = [...questions]
+        const itemgg = [...questions]
         const item = reorder(
             itemgg,
             result.source.index,
@@ -223,6 +220,7 @@ export default function QuestionForm() {
 						<div className="question-form-top">
 							<input type="text" className="question-from-top-name" style={{color: 'blank'}} placeholder="Untitled survey" />
 							<input type="text" className="question-from-top-desc" style={{color: 'blank'}} placeholder="Description" />
+							
 						</div>
 					</div>
                     <DragDropContext onDragEnd={handleOnDragEnd}>
