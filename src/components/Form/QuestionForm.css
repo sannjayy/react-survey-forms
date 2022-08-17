@@ -78,8 +78,31 @@
     margin-right: 10px;
     line-height: 10px;
     padding: 10px;
+    border-bottom: 1px solid lightgrey;
 }
 .question:focus{
+    border-bottom: 1px solid skyblue;
+    background-color: #F4F4F9;
+}
+.description{
+    box-sizing: border-box;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    flex: 1;
+    line-height: 40px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: black;
+    height: 40px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    line-height: 10px;
+    padding: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+.description:focus{
     border-bottom: 1px solid skyblue;
     background-color: #F4F4F9;
 }

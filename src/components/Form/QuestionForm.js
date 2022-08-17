@@ -15,6 +15,8 @@ export default function QuestionForm() {
 	const [ questions, setQuestions ] = useState([
 		{
 			questionText: 'Question',
+            questionDesc: '',
+            showDescription: false,
 			questionType: "radio",
 			options: [
 				{ optionText: 'Option 1'},
@@ -23,9 +25,40 @@ export default function QuestionForm() {
 			required: false,
 		}
 	])
+
+    const handleAddMoreQuestionField = () => {
+        handleExpandCloseAll();
+        setQuestions([
+            ...questions,
+            {
+                questionText: 'Question',
+                questionDesc: '',
+                showDescription: false,
+			    questionType: "radio",
+                options: [
+                    { optionText: 'Option 1'},
+                ],
+                open: true,
+                required: false,
+            }
+        ]);
+    }
+
+    const toggleDescription = (i) => {
+        // Toggle the description field
+        const newQuestion = [...questions];
+        newQuestion[i].showDescription = !newQuestion[i].showDescription;
+        handleChangeQuestionDesc('', i)
+    }
     const handleChangeQuestion = (text, i) => {
         const newQuestion = [...questions];
         newQuestion[i].questionText = text;
+        setQuestions(newQuestion)
+        console.log(newQuestion)
+    }
+    const handleChangeQuestionDesc = (text, i) => {
+        const newQuestion = [...questions];
+        newQuestion[i].questionDesc = text;
         setQuestions(newQuestion)
         console.log(newQuestion)
     }
@@ -82,21 +115,7 @@ export default function QuestionForm() {
         setQuestions(question)
         console.log(type)
     }
-    const handleAddMoreQuestionField = () => {
-        handleExpandCloseAll();
-        setQuestions([
-            ...questions,
-            {
-                questionText: 'Question',
-			    questionType: "radio",
-                options: [
-                    { optionText: 'Option 1'},
-                ],
-                open: true,
-                required: false,
-            }
-        ]);
-    }
+    
     const handleOnDragEnd = (result) => { 
         if (!result.destination){
             return;
@@ -134,6 +153,8 @@ export default function QuestionForm() {
         }
         setQuestions(qs);
     }
+
+    
 
 
 	const questionsUI = () => {
@@ -179,6 +200,7 @@ export default function QuestionForm() {
                                             question={question}
                                             i={i}
                                             handleChangeQuestion={handleChangeQuestion}
+                                            handleChangeQuestionDesc={handleChangeQuestionDesc}
                                             addQuestionType={addQuestionType}
                                         />
                                         <AddOptionsField 
@@ -189,10 +211,12 @@ export default function QuestionForm() {
                                             handleAddOption={handleAddOption}
                                         />
                                         <FormFooter 
+                                            question={question}
                                             i={i}
                                             handleCopyQuestion={handleCopyQuestion}
                                             handleDeleteQuestion={handleDeleteQuestion}
                                             handleRequiredQuestion={handleRequiredQuestion}
+                                            toggleDescription={toggleDescription}
                                         />
                                     </AccordionDetails>
                                     <FormSidebar 

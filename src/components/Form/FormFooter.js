@@ -8,8 +8,9 @@ import { StyledMenu } from '../Styled/StyledMenu';
 import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import DoneIcon from '@mui/icons-material/Done';
+import AddIcon from '@mui/icons-material/Add';
 
-export default function FormFooter({ i, handleCopyQuestion, handleDeleteQuestion, handleRequiredQuestion }) {
+export default function FormFooter({question, i, handleCopyQuestion, handleDeleteQuestion, handleRequiredQuestion, toggleDescription }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -65,10 +66,15 @@ export default function FormFooter({ i, handleCopyQuestion, handleDeleteQuestion
                         open={open}
                         onClose={handleClose}
                     >
+                        <MenuItem onClick={() => {toggleDescription(i); handleClose();}} disableRipple>
+                            {question.showDescription ? <DoneIcon /> : <AddIcon />}
+                            Description
+                        </MenuItem>
                         <MenuItem onClick={handleClose} disableRipple>
                             <DoneIcon />
                             Limit one response per column
                         </MenuItem>
+                        
                         
                     </StyledMenu>
                 </div>

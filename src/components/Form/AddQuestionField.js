@@ -1,15 +1,18 @@
 import { MenuItem, Select  } from '@mui/material';
+
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import SubjectIcon from '@mui/icons-material/Subject';
-// import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-
-export default function AddQuestionField({ question, i, handleChangeQuestion, addQuestionType }) {
+import Grid from '@mui/material/Grid';
+export default function AddQuestionField({ question, i, handleChangeQuestion, handleChangeQuestionDesc, addQuestionType, }) {
+    
 	return (
+        <div>
 		<div className='add_question_top' style={{marginBottom: '10px'}}>
-			<input type="text" className="question" placeholder="Question" onChange={(e) => handleChangeQuestion(e.target.value, i)} value={question.questionText} />
+            <input type="text" className="question" placeholder="Question" onChange={(e) => handleChangeQuestion(e.target.value, i)} value={question.questionText} />
+            
 			{/* <CropOriginalIcon style={{ color: '#5f6368' }} /> */}		
 			<FormControl variant="standard">
 				<InputLabel>Type</InputLabel>
@@ -28,6 +31,14 @@ export default function AddQuestionField({ question, i, handleChangeQuestion, ad
 					</MenuItem>
 				</Select>
 			</FormControl>
+            
 		</div>
-	)
+        {question.showDescription &&
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+            <input type="text" className="description" placeholder="Description" onChange={(e) => handleChangeQuestionDesc(e.target.value, i)} value={question.questionDesc} />
+            </Grid>                
+        </Grid>}
+        </div>
+	)   
 }
