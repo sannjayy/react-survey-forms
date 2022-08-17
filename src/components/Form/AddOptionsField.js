@@ -21,8 +21,8 @@ export default function AddOptionsField({ question, i, handleChangeOption, handl
 
 					{/* <CropOriginalIcon /> */}
 
-					<IconButton aria-label="delete">
-						<CloseIcon onClick={() => handleRemoveOption(i, j)} />
+					<IconButton aria-label="delete" onClick={() => handleRemoveOption(i, j)}>
+						<CloseIcon  />
 					</IconButton>
 				</div>
 			))}

@@ -107,7 +107,7 @@
     background-color: #F4F4F9;
 }
 .select{
-    height: 40px;
+    height: 35px;
     width: 230px;
     border: 0.5px sloid;
     /* padding: 5px 15px; */
@@ -118,9 +118,7 @@
     /* border-radius: 3px;
     background: transparent; */
 }
-.menuitem{
-    color: rgba(118, 118, 118, 0.3);
-}
+
 .add_question_body{
     display: flex;
     align-items: center;

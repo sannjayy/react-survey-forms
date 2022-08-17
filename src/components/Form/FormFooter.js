@@ -50,7 +50,7 @@ export default function FormFooter({question, i, handleCopyQuestion, handleDelet
                         aria-controls={open ? 'form-more-button' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
-                        disableElevation
+                        disableelevation="true"
                         onClick={handleClick}
                     >
                         <MoreVertIcon />
@@ -66,7 +66,7 @@ export default function FormFooter({question, i, handleCopyQuestion, handleDelet
                         open={open}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={() => {toggleDescription(i); handleClose();}} disableRipple>
+                        <MenuItem onClick={() => { toggleDescription(i); handleClose(); }} disableRipple>
                             {question.showDescription ? <DoneIcon /> : <AddIcon />}
                             Description
                         </MenuItem>
@@ -74,8 +74,6 @@ export default function FormFooter({question, i, handleCopyQuestion, handleDelet
                             <DoneIcon />
                             Limit one response per column
                         </MenuItem>
-                        
-                        
                     </StyledMenu>
                 </div>
             </div>

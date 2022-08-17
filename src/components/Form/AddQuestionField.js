@@ -1,8 +1,8 @@
 import { MenuItem, Select  } from '@mui/material';
 
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import SubjectIcon from '@mui/icons-material/Subject';
+// import CheckBoxIcon from '@mui/icons-material/CheckBox';
+// import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+// import SubjectIcon from '@mui/icons-material/Subject';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
@@ -15,6 +15,30 @@ export default function AddQuestionField({ question, i, handleChangeQuestion, ha
             
 			{/* <CropOriginalIcon style={{ color: '#5f6368' }} /> */}		
 			<FormControl variant="standard">
+				<InputLabel id="select-type-label">Select Type</InputLabel>
+				<Select 
+                    className='select' 
+                    style={{ color: '#5f6368', fontSize: '13px' }} 
+                    label="Select Type"
+                    onChange={(e) => addQuestionType(i, e.target.value)}
+                    value={question.questionType}
+                    labelId="select-type-label"
+                >
+                    <MenuItem value='text'>
+                        {/* <SubjectIcon style={{ marginRight: '10px' }} /> */}
+                        Text
+                    </MenuItem>
+                    <MenuItem value='checkbox'>
+                        {/* <CheckBoxIcon style={{ marginRight: '10px',}} /> */}
+                        Checkbox
+                    </MenuItem>
+                    <MenuItem value='radio'>
+                        {/* <RadioButtonCheckedIcon style={{ marginRight: '10px' }} /> */}
+                        Radio
+                    </MenuItem>
+				</Select>
+			</FormControl>
+            {/* <FormControl variant="standard">
 				<InputLabel>Type</InputLabel>
 				<Select className='select' style={{ color: '#5f6368', fontSize: '13px' }} label="Type">
 					<MenuItem id="text" value="Text" onClick={() => addQuestionType(i, 'text')} key={`Text`}>
@@ -30,7 +54,7 @@ export default function AddQuestionField({ question, i, handleChangeQuestion, ha
 						Multiple Choice
 					</MenuItem>
 				</Select>
-			</FormControl>
+			</FormControl> */}
             
 		</div>
         {question.showDescription &&

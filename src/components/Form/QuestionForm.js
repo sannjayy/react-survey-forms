@@ -48,19 +48,20 @@ export default function QuestionForm() {
         // Toggle the description field
         const newQuestion = [...questions];
         newQuestion[i].showDescription = !newQuestion[i].showDescription;
-        handleChangeQuestionDesc('', i)
+        setQuestions(newQuestion)
+        // handleChangeQuestionDesc('', i)
     }
     const handleChangeQuestion = (text, i) => {
         const newQuestion = [...questions];
         newQuestion[i].questionText = text;
         setQuestions(newQuestion)
-        console.log(newQuestion)
+        // console.log(newQuestion)
     }
     const handleChangeQuestionDesc = (text, i) => {
         const newQuestion = [...questions];
         newQuestion[i].questionDesc = text;
         setQuestions(newQuestion)
-        console.log(newQuestion)
+        // console.log(newQuestion)
     }
     const handleCopyQuestion = (i) => {
         handleExpandCloseAll();
@@ -81,7 +82,7 @@ export default function QuestionForm() {
     const handleRequiredQuestion = (i) => {
         let reqQuestion = [...questions];
         reqQuestion[i].required = !reqQuestion[i].required
-        console.log(`${reqQuestion[i].required} - ${i}`)
+        // console.log(`${reqQuestion[i].required} - ${i}`)
         setQuestions(reqQuestion);
     }
     const handleChangeOption = (text, i, j) => {
@@ -89,7 +90,7 @@ export default function QuestionForm() {
         const questionOption = [...questions];
         questionOption[i].options[j].optionText = text;
         setQuestions(questionOption)
-        console.log(questionOption)
+        // console.log(questionOption)
     }
     const handleRemoveOption = (i, j) => {
         // i question index & j option index
@@ -98,7 +99,7 @@ export default function QuestionForm() {
             removeQuestionOption[i].options.splice(j, 1)
         }
         setQuestions(removeQuestionOption)
-        console.log(`${i} __ ${j}`)
+        // console.log(`${i} __ ${j}`)
     }
     const handleAddOption = (i) => {
         const optionOfQuestion = [...questions];
@@ -113,7 +114,7 @@ export default function QuestionForm() {
         let question = [...questions];
         question[i].questionType = type;
         setQuestions(question)
-        console.log(type)
+        // console.log(type)
     }
     
     const handleOnDragEnd = (result) => { 
@@ -153,8 +154,6 @@ export default function QuestionForm() {
         }
         setQuestions(qs);
     }
-
-    
 
 
 	const questionsUI = () => {
@@ -229,10 +228,7 @@ export default function QuestionForm() {
                         
                     </div>
                 )}
-
-            </Draggable>			
-			
-			
+            </Draggable>				
 		))
 	}
 	return (
@@ -244,7 +240,6 @@ export default function QuestionForm() {
 						<div className="question-form-top">
 							<input type="text" className="question-from-top-name" style={{color: 'blank'}} placeholder="Untitled survey" />
 							<input type="text" className="question-from-top-desc" style={{color: 'blank'}} placeholder="Description" />
-							
 						</div>
 					</div>
                     <DragDropContext onDragEnd={handleOnDragEnd}>
