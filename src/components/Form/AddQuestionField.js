@@ -1,11 +1,16 @@
 import { MenuItem, Select  } from '@mui/material';
-
-// import CheckBoxIcon from '@mui/icons-material/CheckBox';
-// import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-// import SubjectIcon from '@mui/icons-material/Subject';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import SubjectIcon from '@mui/icons-material/Subject';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
+import DragIndicatorSharpIcon from '@mui/icons-material/DragIndicatorSharp';
+import Divider from '@mui/material/Divider';
+import ArrowDropDownCircleSharpIcon from '@mui/icons-material/ArrowDropDownCircleSharp';
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
+
+
 export default function AddQuestionField({ question, i, handleChangeQuestion, handleChangeQuestionDesc, addQuestionType, }) {
     
 	return (
@@ -24,38 +29,34 @@ export default function AddQuestionField({ question, i, handleChangeQuestion, ha
                     value={question.questionType}
                     labelId="select-type-label"
                 >
-                    <MenuItem value='text'>
-                        {/* <SubjectIcon style={{ marginRight: '10px' }} /> */}
+                    <MenuItem value='TEXT'>
+                        <SubjectIcon style={{ marginRight: '10px' }} />
                         Text
                     </MenuItem>
-                    <MenuItem value='checkbox'>
-                        {/* <CheckBoxIcon style={{ marginRight: '10px',}} /> */}
-                        Checkbox
+                    <MenuItem value='RADIO'>
+                        <RadioButtonCheckedIcon style={{ marginRight: '10px' }} />
+                        Choices
                     </MenuItem>
-                    <MenuItem value='radio'>
-                        {/* <RadioButtonCheckedIcon style={{ marginRight: '10px' }} /> */}
-                        Radio
+                    <MenuItem value='CHECKBOX'>
+                        <CheckBoxIcon style={{ marginRight: '10px',}} />
+                        Checkboxes
+                    </MenuItem>
+                    <MenuItem value='DROPDOWN'>
+                        <ArrowDropDownCircleSharpIcon style={{ marginRight: '10px',}} />
+                        Dropdown
+                    </MenuItem>
+                    
+                    <Divider />
+                    <MenuItem value='CHECKBOX_GRID'>
+                        <ViewModuleIcon style={{ marginRight: '10px' }} />
+                        Multiple Checkbox Grid
+                    </MenuItem>
+                    <MenuItem value='RADIO_GRID'>
+                        <DragIndicatorSharpIcon style={{ marginRight: '10px' }} />
+                        Multiple Choice Grid
                     </MenuItem>
 				</Select>
-			</FormControl>
-            {/* <FormControl variant="standard">
-				<InputLabel>Type</InputLabel>
-				<Select className='select' style={{ color: '#5f6368', fontSize: '13px' }} label="Type">
-					<MenuItem id="text" value="Text" onClick={() => addQuestionType(i, 'text')} key={`Text`}>
-						<SubjectIcon style={{ marginRight: '10px' }} />
-						Paragraph
-					</MenuItem>
-					<MenuItem id="checkbox" value="Checkbox" onClick={() => addQuestionType(i, 'checkbox')} key={`Checkbox`}>
-						<CheckBoxIcon style={{ marginRight: '10px' }} />
-						Checkbox
-					</MenuItem>
-					<MenuItem id="radio" value="Radio" onClick={() => addQuestionType(i, 'radio')} key={`Checkbox`}>
-						<RadioButtonCheckedIcon style={{ marginRight: '10px' }} />
-						Multiple Choice
-					</MenuItem>
-				</Select>
-			</FormControl> */}
-            
+			</FormControl>            
 		</div>
         {question.showDescription &&
         <Grid container spacing={2}>

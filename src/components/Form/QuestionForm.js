@@ -17,10 +17,36 @@ export default function QuestionForm() {
 			questionText: 'Question',
             questionDesc: '',
             showDescription: false,
-			questionType: "radio",
-			options: [
-				{ optionText: 'Option 1'},
-			],
+			questionType: "RADIO",
+			options: [],
+            questionGridItem: {
+                rows: [
+                    {
+                        questionId:"42b72170",
+                        title: "Row 1",
+                        required: true,
+                    },
+                    {
+                        questionId:"42b72170",
+                        title: "Row 1",
+                        required: true,
+                    },
+                ],
+                columns:{
+                    type:"RADIO",
+                    options:[
+                       {
+                          value:"Columdn 1"
+                       },
+                       {
+                          value:"Column 2"
+                       },
+                       {
+                          value:"Column 3"
+                       }
+                    ]
+                },
+            },
 			open: true,
 			required: false,
 		}
@@ -34,10 +60,9 @@ export default function QuestionForm() {
                 questionText: 'Question',
                 questionDesc: '',
                 showDescription: false,
-			    questionType: "radio",
-                options: [
-                    { optionText: 'Option 1'},
-                ],
+			    questionType: "RADIO",
+                options: [],
+                questionGroupItem: {},
                 open: true,
                 required: false,
             }
@@ -101,10 +126,14 @@ export default function QuestionForm() {
         setQuestions(removeQuestionOption)
         // console.log(`${i} __ ${j}`)
     }
-    const handleAddOption = (i) => {
+    const handleAddOption = (optionText, i) => {
         const optionOfQuestion = [...questions];
-        if (optionOfQuestion[i].options.length < 5) {
-            optionOfQuestion[i].options.push({optionText: `Option ${(optionOfQuestion[i].options.length + 1)}`})
+        if (optionOfQuestion[i].options.length < 10) {
+            if(optionText){
+                optionOfQuestion[i].options.push({optionText: optionText})
+            } else {
+                optionOfQuestion[i].options.push({optionText: `Option ${(optionOfQuestion[i].options.length + 1)}`})
+            }            
         } else {
             console.log('max 5 options allowed');
         }
@@ -146,7 +175,7 @@ export default function QuestionForm() {
     const handleExpand = (i) => {
         let qs = [...questions];
         for (let j=0; j < qs.length; j++){
-            if( i === j){
+            if(i === j){
                 qs[j].open = true;
             } else {
                 qs[j].open = false;
@@ -208,6 +237,9 @@ export default function QuestionForm() {
                                             handleChangeOption={handleChangeOption}
                                             handleRemoveOption={handleRemoveOption}
                                             handleAddOption={handleAddOption}
+
+                                            questions={questions}
+                                            setQuestions={setQuestions}
                                         />
                                         <FormFooter 
                                             question={question}
