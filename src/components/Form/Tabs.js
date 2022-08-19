@@ -1,37 +1,10 @@
-// import React from 'react';
-// import './Tabs.css';
-// import Paper from '@mui/material/Paper';
-// import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-// import Typography from '@mui/material/Typography';
-// import Box from '@mui/material/Box';
-
-
-// export default function TabsComp() {
-// 	return (
-// 		<Paper className="tabs-root">
-// 			<Tabs
-// 				centered={true}
-// 				textColor='primary'
-// 				indicateColor='primary'
-// 				className='tabs'
-// 			>
-// 				<Tab label="Questions" className="tab">
-
-// 				</Tab>
-// 				<Tab label="Responses" className="tab">
-
-// 				</Tab>
-// 			</Tabs>
-// 		</Paper>
-// 	)
-// }
-
 import React, {useState} from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import QuestionForm from './QuestionForm';
+import FormSettings from './FormSettings';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -41,10 +14,12 @@ function TabPanel(props) {
 			role="tabpanel"
 			hidden={value !== index}
 			{...other}
+            aria-labelledby={`simple-tab-${index}`}
+            id={`simple-tabpanel-${index}`}
 		>
 			{value === index && (
 				<Box sx={{ p: 3 }}>
-					<Typography>{children}</Typography>
+					<Typography variant={`string`} >{children}</Typography>
 				</Box>
 			)}
 		</div>
@@ -69,14 +44,14 @@ export default function BasicTabs() {
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 				<Tabs value={value} onChange={handleChange} centered={true}>
 					<Tab label="Questions" {...a11yProps(0)} />
-					<Tab label="Responses" {...a11yProps(1)} />
+					<Tab label="Settings" {...a11yProps(1)} />
 				</Tabs>
 			</Box>
-			<TabPanel value={value} index={0}>
-				Item One
+			<TabPanel value={value} index={0} style={{padding:0}}>
+				<QuestionForm />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				Item Two
+				<FormSettings />
 			</TabPanel>
 		</Box>
 	);

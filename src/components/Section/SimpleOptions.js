@@ -1,13 +1,44 @@
-// import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import { Button } from '@mui/material';
 import ShortTextIcon from '@mui/icons-material/ShortText';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 import { useState } from 'react';
 
-export default function SimpleOptions({ question, i, handleChangeOption, handleRemoveOption, handleAddOption }) {
+export default function SimpleOptions({ question, i, questions, setQuestions }) {
 	const [optionText, setOptionText] = useState('')
 
+    const handleAddOption = (optionText, i) => {
+        const optionOfQuestion = [...questions];
+        if (optionOfQuestion[i].options.length < 10) {
+            if(optionText){
+                optionOfQuestion[i].options.push({optionText: optionText})
+            } else {
+                optionOfQuestion[i].options.push({optionText: `Option ${(optionOfQuestion[i].options.length + 1)}`})
+            }            
+        } else {
+            console.log('max 10 options allowed');
+        }
+        setQuestions(optionOfQuestion)
+    }
+
+    const handleChangeOption = (text, i, j) => {
+        // i question index & j option index
+        const questionOption = [...questions];
+        questionOption[i].options[j].optionText = text;
+        setQuestions(questionOption)
+        // console.log(questionOption)
+    }
+
+    const handleRemoveOption = (i, j) => {
+        // i question index & j option index
+        const removeQuestionOption = [...questions];
+        if (removeQuestionOption[i].options.length > 1) {
+            removeQuestionOption[i].options.splice(j, 1)
+        }
+        setQuestions(removeQuestionOption)
+        // console.log(`${i} __ ${j}`)
+    }
+    
 	return (
 		<div>
 			{/* Showing the options fields */}

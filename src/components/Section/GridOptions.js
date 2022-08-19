@@ -6,15 +6,29 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-export default function GridOptions({ question, i, handleAddOption, questions,
-    setQuestions,}) {
-	const [rowText, setRowText] = useState('')
-	const [columnText, setColumnText] = useState('')
+export default function GridOptions({ question, i, questions, setQuestions,}) {
+	const [rowText, setRowText] = useState('');
+	const [columnText, setColumnText] = useState('');
 	const rows = question.questionGridItem.rows;
 	const columns = question.questionGridItem.columns;
+    
 
-	// console.log('questions -> ', questions);
-	console.log('rows -> ', rows);
+    // Column Actions
+	const handleAddColumnOption = (optionText, i) => {
+        const optionOfQuestion = [...questions];
+        const options = optionOfQuestion[i].questionGridItem.columns.options;
+        if (options.length < 20) {
+            if(optionText){
+                options.push({value: optionText})
+                setColumnText('')
+            } else {
+                options.push({value: `Column ${(options.length + 1)}`})
+            }            
+        } else {
+            console.log('max 20 options allowed');
+        }
+        setQuestions(optionOfQuestion)
+    }
 
 	const handleColumnChangeOption = (text, i, j) => {
         const questionOption = [...questions];
@@ -30,6 +44,24 @@ export default function GridOptions({ question, i, handleAddOption, questions,
         setQuestions(removeQuestionOption)
         // console.log(`${i} __ ${j}`)
     }
+    
+    //  Rows Actions
+    const handleAddRowOption = (optionText, i) => {
+        const optionOfQuestion = [...questions];
+        const rows = optionOfQuestion[i].questionGridItem.rows;
+        if (rows.length < 20) {
+            if(optionText){
+                rows.push({title: optionText})
+                setRowText('')
+            } else {
+                rows.push({title: `Row ${(rows.length + 1)}`})
+            }            
+        } else {
+            console.log('max 20 options allowed');
+        }
+        setQuestions(optionOfQuestion)
+    }
+
 	const handleRowChangeOption = (text, i, k) => {
         const questionOption = [...questions];
         questionOption[i].questionGridItem.rows[k].title = text;
@@ -45,6 +77,9 @@ export default function GridOptions({ question, i, handleAddOption, questions,
         setQuestions(removeQuestionOption)
         // console.log(`${i} __ ${j}`)
     }
+
+
+    
 	return (
 		<Box sx={{ flexGrow: 1, marginTop: 5, marginBottom: 5}}>
 			<Grid container spacing={2}>
@@ -70,7 +105,7 @@ export default function GridOptions({ question, i, handleAddOption, questions,
 					))}
 
 
-					{rows.length < 10 &&
+					{rows.length < 20 &&
 						<div className='add_question_body'>
 
 							<div>
@@ -81,7 +116,7 @@ export default function GridOptions({ question, i, handleAddOption, questions,
 									value={rowText}
 									onChange={(e) => setRowText(e.target.value)}
 								/>
-								<Button size="small" style={{ textTransform: 'none', color: "#4285f4", fontSize: '13px', fontWeight: '600' }}>Add Row</Button>
+								<Button size="small" style={{ textTransform: 'none', color: "#4285f4", fontSize: '13px', fontWeight: '600' }} onClick={() => handleAddRowOption(rowText, i)}>Add Row</Button>
 							</div>
 						</div>
 					}
@@ -114,17 +149,17 @@ export default function GridOptions({ question, i, handleAddOption, questions,
 						</div>
 					))}
 
-					{columns.options.length < 10 &&
+					{columns.options.length < 20 &&
 						<div className='add_question_body'>
 							<div>
 								<input type='text'
 									className="text_input"
-									style={{ width: '65%'}}
+									style={{ width: '63%'}}
 									placeholder="Add column"
 									value={columnText}
 									onChange={(e) => setColumnText(e.target.value)}
 								/>
-								<Button size="small" style={{ textTransform: 'none', color: "#4285f4", fontSize: '13px', fontWeight: '600' }}>Add Column</Button>
+								<Button size="small" style={{ textTransform: 'none', color: "#4285f4", fontSize: '13px', fontWeight: '600' }} onClick={() => handleAddColumnOption(columnText, i)}>Add Column</Button>
 							</div>
 						</div>
 					}

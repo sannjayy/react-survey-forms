@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useContext } from 'react'
 import './QuestionForm.css'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -10,84 +10,12 @@ import FormSidebar from './FormSidebar';
 import AddQuestionField from './AddQuestionField';
 import CompactQuestion from './CompactQuestion';
 import AddOptionsField from './AddOptionsField';
+import FormContext from '../../context/form/FormContext';
 
 export default function QuestionForm() {
-	const [ questions, setQuestions ] = useState([
-		{
-			questionText: 'Question',
-            questionDesc: '',
-            showDescription: false,
-			questionType: "RADIO",
-			options: [],
-            questionGridItem: {
-                rows: [
-                    {
-                        questionId:"42b72170",
-                        title: "Row 1",
-                        required: true,
-                    },
-                    {
-                        questionId:"42b72170",
-                        title: "Row 1",
-                        required: true,
-                    },
-                ],
-                columns:{
-                    type:"RADIO",
-                    options:[
-                       {
-                          value:"Columdn 1"
-                       },
-                       {
-                          value:"Column 2"
-                       },
-                       {
-                          value:"Column 3"
-                       }
-                    ]
-                },
-            },
-			open: true,
-			required: false,
-		}
-	])
+    const { questions, setQuestions } = useContext(FormContext);
 
-    const handleAddMoreQuestionField = () => {
-        handleExpandCloseAll();
-        setQuestions([
-            ...questions,
-            {
-                questionText: 'Question',
-                questionDesc: '',
-                showDescription: false,
-			    questionType: "RADIO",
-                options: [],
-                questionGroupItem: {},
-                open: true,
-                required: false,
-            }
-        ]);
-    }
-
-    const toggleDescription = (i) => {
-        // Toggle the description field
-        const newQuestion = [...questions];
-        newQuestion[i].showDescription = !newQuestion[i].showDescription;
-        setQuestions(newQuestion)
-        // handleChangeQuestionDesc('', i)
-    }
-    const handleChangeQuestion = (text, i) => {
-        const newQuestion = [...questions];
-        newQuestion[i].questionText = text;
-        setQuestions(newQuestion)
-        // console.log(newQuestion)
-    }
-    const handleChangeQuestionDesc = (text, i) => {
-        const newQuestion = [...questions];
-        newQuestion[i].questionDesc = text;
-        setQuestions(newQuestion)
-        // console.log(newQuestion)
-    }
+   
     const handleCopyQuestion = (i) => {
         handleExpandCloseAll();
         let question = [...questions];
@@ -95,55 +23,6 @@ export default function QuestionForm() {
         let qsCopy = JSON.parse(JSON.stringify(question));
         qsCopy.push(newQuestion);
         setQuestions(qsCopy)
-    }
-    
-    const handleDeleteQuestion = (i) => {
-        let question = [...questions];
-        if (questions.length > 1) { 
-            question.splice(i, 1);
-        }
-        setQuestions(question);
-    }
-    const handleRequiredQuestion = (i) => {
-        let reqQuestion = [...questions];
-        reqQuestion[i].required = !reqQuestion[i].required
-        // console.log(`${reqQuestion[i].required} - ${i}`)
-        setQuestions(reqQuestion);
-    }
-    const handleChangeOption = (text, i, j) => {
-        // i question index & j option index
-        const questionOption = [...questions];
-        questionOption[i].options[j].optionText = text;
-        setQuestions(questionOption)
-        // console.log(questionOption)
-    }
-    const handleRemoveOption = (i, j) => {
-        // i question index & j option index
-        const removeQuestionOption = [...questions];
-        if (removeQuestionOption[i].options.length > 1) {
-            removeQuestionOption[i].options.splice(j, 1)
-        }
-        setQuestions(removeQuestionOption)
-        // console.log(`${i} __ ${j}`)
-    }
-    const handleAddOption = (optionText, i) => {
-        const optionOfQuestion = [...questions];
-        if (optionOfQuestion[i].options.length < 10) {
-            if(optionText){
-                optionOfQuestion[i].options.push({optionText: optionText})
-            } else {
-                optionOfQuestion[i].options.push({optionText: `Option ${(optionOfQuestion[i].options.length + 1)}`})
-            }            
-        } else {
-            console.log('max 5 options allowed');
-        }
-        setQuestions(optionOfQuestion)
-    }
-    const addQuestionType = (i, type) => {
-        let question = [...questions];
-        question[i].questionType = type;
-        setQuestions(question)
-        // console.log(type)
     }
     
     const handleOnDragEnd = (result) => { 
@@ -158,6 +37,7 @@ export default function QuestionForm() {
         )
         setQuestions(item);
     }
+
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list)
         const [ removed ] = result.splice(startIndex, 1);
@@ -183,7 +63,6 @@ export default function QuestionForm() {
         }
         setQuestions(qs);
     }
-
 
 	const questionsUI = () => {
 		return questions.map((question, i) => (
@@ -227,16 +106,10 @@ export default function QuestionForm() {
                                         <AddQuestionField 
                                             question={question}
                                             i={i}
-                                            handleChangeQuestion={handleChangeQuestion}
-                                            handleChangeQuestionDesc={handleChangeQuestionDesc}
-                                            addQuestionType={addQuestionType}
                                         />
                                         <AddOptionsField 
                                             question={question}
                                             i={i}
-                                            handleChangeOption={handleChangeOption}
-                                            handleRemoveOption={handleRemoveOption}
-                                            handleAddOption={handleAddOption}
 
                                             questions={questions}
                                             setQuestions={setQuestions}
@@ -245,13 +118,10 @@ export default function QuestionForm() {
                                             question={question}
                                             i={i}
                                             handleCopyQuestion={handleCopyQuestion}
-                                            handleDeleteQuestion={handleDeleteQuestion}
-                                            handleRequiredQuestion={handleRequiredQuestion}
-                                            toggleDescription={toggleDescription}
                                         />
                                     </AccordionDetails>
                                     <FormSidebar 
-                                        handleAddMoreQuestionField={handleAddMoreQuestionField}
+                                        handleExpandCloseAll={handleExpandCloseAll}
                                     />
                                 </div> }
                             </Accordion>
@@ -264,33 +134,30 @@ export default function QuestionForm() {
 		))
 	}
 	return (
-		<div>
-			<div className="question-form">
-				<br />
-				<div className="section">
-					<div className="question-title-section">
-						<div className="question-form-top">
-							<input type="text" className="question-from-top-name" style={{color: 'blank'}} placeholder="Untitled survey" />
-							<input type="text" className="question-from-top-desc" style={{color: 'blank'}} placeholder="Description" />
-						</div>
-					</div>
-                    <DragDropContext onDragEnd={handleOnDragEnd}>
-                        <Droppable droppableId="droppable">
-                            {(provided, snapshot) => (
-                                <div
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                >
-                                    {questionsUI()}
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
-					
-				</div>
-			</div>
-
-		</div>
+        <div className="question-form">
+            <br />
+            <div className="section">
+                <div className="question-title-section">
+                    <div className="question-form-top">
+                        <input type="text" className="question-from-top-name" style={{color: 'blank'}} placeholder="Untitled survey" />
+                        <input type="text" className="question-from-top-desc" style={{color: 'blank'}} placeholder="Description" />
+                    </div>
+                </div>
+                <DragDropContext onDragEnd={handleOnDragEnd}>
+                    <Droppable droppableId="droppable">
+                        {(provided, snapshot) => (
+                            <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                {questionsUI()}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+                
+            </div>
+        </div>
 	)
 }
